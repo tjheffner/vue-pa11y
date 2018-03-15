@@ -5,6 +5,7 @@
       <p>urls checked: {{ data.total }}</p>
       <p>urls passed: {{ data.passes }}</p>
       <p>errors found: {{ data.errors }}</p>
+      <p>unique errors: {{ uniques }}</p>
     </div>
 
     <div class="section">
@@ -14,9 +15,9 @@
       </ul>
     </div>
 
-    <div>
+    <div class="section">
       <h2>Unique Errors</h2>
-      <p v-for="(value, key) in errorList">{{ key }} <a target="_blank" :href="'https://www.w3.org/TR/WCAG20-TECHS/' + getURICode(key)"></a>: {{ value }}</p>
+      <p class="rule" v-for="(value, key) in errorList">{{ key }} <a target="_blank" :href="'https://www.w3.org/TR/WCAG20-TECHS/' + getURICode(key)"></a>: <span :class="{ red: value > 5 }">{{ value }}</span></p>
     </div>
 
   </div>
@@ -33,7 +34,8 @@ export default {
   data () {
     return {
       title: 'pa11y feedback',
-      errorList: []
+      errorList: [],
+      uniques: 0
     }
   },
   methods: {
@@ -61,6 +63,7 @@ export default {
     this.$store.dispatch('pa11yData');
     this.$store.dispatch('processResults');
     this.errorList = this.$store.getters.getListOfErrors;
+    this.uniques = _.size(this.errorList);
   }
 }
 </script>
@@ -75,4 +78,17 @@ export default {
   .section {
     margin: 50px 0;
   }
+
+  .rule {
+    font-size: 16px;
+  }
+
+  .rule > span {
+    font-weight: 700;
+  }
+
+  .red {
+    color: red;
+  }
+
 </style>
