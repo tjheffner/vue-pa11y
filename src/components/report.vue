@@ -8,18 +8,15 @@
     </div>
 
     <div class="section">
-      <h2>URL Breakdown</h2>
+      <h2>URL Report</h2>
       <ul v-for="(result, index) in data.results">
         <li is="result" :result="result, index"></li>
       </ul>
     </div>
 
-    <!--<div v-if="result.length > 0" v-for="result in results">-->
-      <!--<p v-for="item in result">{{ item.code }}</p>-->
-    <!--</div>-->
     <div>
-      <h2>Rule Breakdown</h2>
-      <p v-for="(value, key) in errorList">{{ key }}: {{ value }}</p>
+      <h2>Unique Errors</h2>
+      <p v-for="(value, key) in errorList">{{ key }} <a target="_blank" :href="'https://www.w3.org/TR/WCAG20-TECHS/' + getURICode(key)"></a>: {{ value }}</p>
     </div>
 
   </div>
@@ -44,9 +41,12 @@ export default {
       'pa11yData',
       'processResults',
     ]),
-    ordered: function(items) {
-      return items.sort();
-    }
+    getURICode: function (string) {
+      // @todo fix this for multi-rule codes, i.e. H53,ARIA6
+      const re = /Principle.*([A-Z]+[0-9]+(,[A-Z]+[0-9]+)*)/g;
+      const code = re.exec(string);
+      return code[1];
+    },
   },
   computed: {
     ...mapState([

@@ -1,8 +1,8 @@
 <template>
   <li v-if="result.length > 0" :class="{ active: showResults }">
-    <p v-on:click="toggleResults" class="bold">{{ index }}: <span class="error">{{ result.length }} issues</span></p>
-    <div v-for="item in result" :class="item.type" class="result-container" >
-      <p>{{ item.code }} </p>
+    <p v-on:click="toggleResults" class="bold">{{ index }} <a target="_blank" :href="index"></a> : <span class="error">{{ result.length }} issues</span></p>
+    <div v-for="item in result" :class="item.type" class="result-container">
+      <p>{{ item.code }} <a target="_blank" :href="'https://www.w3.org/TR/WCAG20-TECHS/' + getURICode(item.code)">[DOCS]</a></p>
       <p>{{ item.message }}</p>
       <p>{{ item.selector }}</p>
     </div>
@@ -24,8 +24,14 @@
     methods: {
       toggleResults: function () {
         this.showResults = !this.showResults;
+      },
+      getURICode: function (string) {
+        // @todo fix multi rule, pass this in from somewhere (store maybe?) to be DRY
+        const re = /Principle.*([A-Z]+[0-9]+(,[A-Z]+[0-9]+)*)/g;
+        const code = re.exec(string);
+        return code[1];
       }
-    }
+    },
   }
 </script>
 
@@ -52,8 +58,13 @@
     margin: 10px
   }
 
-  .result-container > p {
+  .result-container > * {
     padding: 0 15px;
+  }
+
+  /* adds external link icon */
+  a[target='_blank']::after {
+    content: '\29C9';
   }
 
   .error {
