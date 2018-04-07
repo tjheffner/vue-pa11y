@@ -1,24 +1,55 @@
 <template>
-  <div class="report">
-    <h1>{{ title }}</h1>
-    <div class="stats section">
-      <p>urls checked: {{ data.total }}</p>
-      <p>urls passed: {{ data.passes }}</p>
-      <p>errors found: {{ data.errors }}</p>
-      <p>unique errors: {{ uniques }}</p>
+  <div>
+    <table class="table table-striped table-hover table-bordered">
+      <thead>
+        <tr>
+          <th>At a glance</th>
+          <th>Count</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Links checked</td>
+          <td>{{ data.total }}</td>
+        </tr>
+        <tr>
+          <td>Links passed</td>
+          <td>{{ data.passes }}</td>
+        </tr>
+        <tr>
+          <td>Issues found</td>
+          <td :class="{ red: data.errors > 5 }">{{ data.errors }}</td>
+        </tr>
+        <tr>
+          <td>Unique issues</td>
+          <td :class="{ red: uniques > 8 }">{{ uniques }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Link Breakdown</h2>
+    <div v-for="(result, index) in data.results">
+      <h4> {{ index }} - <span :class="{ red: result.length > 5 }">{{ result.length }} issues</span></h4>
+      <table is="result" :result="result, index"></table>
     </div>
 
-    <div class="section">
-      <h2>URL Report</h2>
-      <ul v-for="(result, index) in data.results">
-        <li is="result" :result="result, index"></li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <h2>Unique Errors</h2>
-      <p class="rule" v-for="(value, key) in errorList">{{ key }} <a target="_blank" :href="'https://www.w3.org/TR/WCAG20-TECHS/' + getURICode(key)"></a>: <span :class="{ red: value > 5 }">{{ value }}</span></p>
-    </div>
+    <h2>Unique Errors</h2>
+    <table class="table table-striped table-hover table-bordered">
+      <thead>
+        <tr>
+          <th>Error Name</th>
+          <th>Docs</th>
+          <th>Count</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(value, key) in errorList">
+          <td>{{ key }}</td>
+          <td><a target="_blank" :href="'https://www.w3.org/TR/WCAG20-TECHS/' + getURICode(key)"></a></td>
+          <td :class="{ red: value > 5 }">{{ value }}</td>
+        </tr>
+      </tbody>
+    </table>
 
   </div>
 </template>
@@ -33,7 +64,6 @@ export default {
   components: { result },
   data () {
     return {
-      title: 'pa11y feedback',
       errorList: [],
       uniques: 0
     }
@@ -68,27 +98,29 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-  .stats {
-    display: flex;
-    justify-content: space-around;
+<style>
+  thead {
+    background-color: #0e2e41;
+    color: #fff
   }
-
-  .section {
-    margin: 50px 0;
+  th {
+    font-weight: 400
   }
-
-  .rule {
-    font-size: 16px;
+  .table-hover tbody tr:hover td{
+    background-color: #e2e2e2
   }
-
-  .rule > span {
-    font-weight: 700;
+  a {
+    color: #008eb0
   }
-
+  a:hover {
+    color: #0e2e41;
+    text-decoration:none
+  }
+  /* adds external link icon */
+  a[target='_blank']::after {
+    content: '\29C9';
+  }
   .red {
     color: red;
   }
-
 </style>

@@ -1,5 +1,9 @@
 <template>
-  <div id="app">
+  <div id="app" class="container">
+    <header class="jumbotron">
+      <h1 class="display-3">pa11y report</h1>
+    </header>
+
     <report/>
   </div>
 </template>
@@ -22,4 +26,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
+  .jumbotron {
+    text-align: center;
+  }
 </style>
