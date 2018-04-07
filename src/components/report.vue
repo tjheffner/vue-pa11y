@@ -28,24 +28,27 @@
     </table>
 
     <h2>Link Breakdown</h2>
-    <div v-for="(result, index) in data.results">
-      <h4> {{ index }} - <span :class="{ red: result.length > 5 }">{{ result.length }} issues</span></h4>
-      <table is="result" :result="result, index"></table>
+    <div v-for="(result, index) in data.results" class="result-container">
+      <h3 @click="$set(result, 'selected', !result.selected)"
+          :class="{ activeTable: result.selected }">
+        {{ index }} - <span :class="{ red: result.length > 5 }">{{ result.length }} issues </span><span class="toggle-indicator" v-if="result.length > 0"> </span>
+      </h3>
+      <result :result="result, index"/>
     </div>
 
     <h2>Unique Errors</h2>
     <table class="table table-striped table-hover table-bordered">
       <thead>
         <tr>
+          <th>Error Code</th>
           <th>Error Name</th>
-          <th>Docs</th>
           <th>Count</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(value, key) in errorList">
-          <td>{{ key }}</td>
-          <td><a target="_blank" :href="'https://www.w3.org/TR/WCAG20-TECHS/' + getURICode(key)"></a></td>
+          <td><a target="_blank" :href="'https://www.w3.org/TR/WCAG20-TECHS/' + getURICode(key)">{{ getURICode(key) }}</a></td>
+          <td>{{ key }} </td>
           <td :class="{ red: value > 5 }">{{ value }}</td>
         </tr>
       </tbody>
@@ -97,30 +100,3 @@ export default {
   }
 }
 </script>
-
-<style>
-  thead {
-    background-color: #0e2e41;
-    color: #fff
-  }
-  th {
-    font-weight: 400
-  }
-  .table-hover tbody tr:hover td{
-    background-color: #e2e2e2
-  }
-  a {
-    color: #008eb0
-  }
-  a:hover {
-    color: #0e2e41;
-    text-decoration:none
-  }
-  /* adds external link icon */
-  a[target='_blank']::after {
-    content: '\29C9';
-  }
-  .red {
-    color: red;
-  }
-</style>

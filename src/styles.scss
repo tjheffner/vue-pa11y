@@ -1,0 +1,67 @@
+$c-blue: #2c3e50;
+$c-dark: #0e2e41;
+$c-light: #008eb0;
+
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: $c-dark;
+}
+.jumbotron {
+  text-align: center;
+}
+
+thead {
+  background-color: $c-dark;
+  color: #fff;
+}
+th {
+  font-weight: 400;
+}
+.table-hover tbody tr:hover td {
+  background-color: #e2e2e2;
+}
+a {
+  color: $c-light;
+
+  &:hover {
+    color: $c-dark;
+    text-decoration: none
+  }
+}
+/* adds external link icon */
+a[target='_blank']::after {
+  content: '\29C9';
+}
+
+.red {
+  color: red;
+}
+
+.result-container {
+  margin: 20px 5px;
+}
+
+
+// css toggle for link tables
+h3 {
+  font-size: 1.2rem;
+}
+.toggle-indicator::after {
+  font-size: 16px;
+  color: $c-light;
+  content: '+';
+}
+h3 + table {
+  display: none;
+}
+h3.activeTable {
+  & + table {
+    display: table;
+  }
+
+  .toggle-indicator::after {
+    content: 'x'
+  }
+}

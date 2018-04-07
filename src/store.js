@@ -33,13 +33,13 @@ const mutations = {
  * ACTIONS
  */
 const actions = {
-  // get the json generated from the `npm run pa11y` script
+  // get the json generated from the `npm run report` script
   pa11yData: ({ commit }) => {
     commit('ADD_DATA', data );
   },
   processResults: ({ commit }) => {
 
-    let modified = _.map(data.results, function(value, index) {
+    let modified = _.map(state.data.results, function(value, index) {
       return [value];
     });
 
@@ -55,7 +55,7 @@ const actions = {
 const getters = {
   getListOfErrors: state => {
     return _.countBy(state.results, 'code');
-  }
+  },
 };
 
 export default new Vuex.Store({

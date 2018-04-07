@@ -17,8 +17,6 @@
       </tr>
     </tbody>
   </table>
-  <table v-else>
-  </table>
 </template>
 
 <script>
