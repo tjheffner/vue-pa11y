@@ -9,7 +9,7 @@
 npm install
 
 # generate pa11y report [json data used by dashboard]
-npm run pa11y
+npm run report
 
 # serve with hot reload at localhost:8080
 npm run dev
@@ -37,4 +37,9 @@ Configuration options are set in .pa11yci. See [pa11y-ci](https://github.com/pa1
 }
 ```
 
-If your site has a sitemap, you can also pass that in as an option in the package.json command, `pa11y-ci --sitemap http://example.com/sitemap.xml -j > pa11y-report.json` and the urls in your sitemap will be checked, in addition to any links inside `.pa11yci`'s urls array.
+If your site has a sitemap, that can be passed in as an option in the package.json `report` command, e.g. `pa11y-ci --sitemap http://example.com/sitemap.xml -j > pa11y-report.json`. This will check the urls in your sitemap, __in addition to__ any links defined inside the `.pa11yci` urls array noted above.
+
+## How to use
+
+Fill out an array of URLs and any configuration options you need, run `npm run report` to generate the .json file used by the dashboard.
+`npm run dev` to see it locally, or `npm run build` for the entire thing. A dashboard breakdown of the overall data, as well as a more comprehensive breakdown for each issue per site is generated. Happy testing!
