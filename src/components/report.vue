@@ -1,27 +1,22 @@
 <template>
   <div>
+    <h2>Report Stats</h2>
     <table class="table table-striped table-hover table-bordered">
       <thead>
         <tr>
-          <th>At a glance</th>
-          <th>Count</th>
+          <td>Links checked</td>
+          <td>Links passed</td>
+          <td>Success Rate</td>
+          <td>Issues found</td>
+          <td>Unique issues</td>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>Links checked</td>
           <td>{{ data.total }}</td>
-        </tr>
-        <tr>
-          <td>Links passed</td>
           <td>{{ data.passes }}</td>
-        </tr>
-        <tr>
-          <td>Issues found</td>
+          <td>{{ (data.passes / data.total) * 100 }}%</td>
           <td :class="{ red: data.errors > 5 }">{{ data.errors }}</td>
-        </tr>
-        <tr>
-          <td>Unique issues</td>
           <td :class="{ red: uniques > 8 }">{{ uniques }}</td>
         </tr>
       </tbody>
@@ -31,7 +26,8 @@
     <div v-for="(result, index) in data.results" class="result-container">
       <h3 @click="$set(result, 'selected', !result.selected)"
           :class="{ activeTable: result.selected }">
-        {{ index }} - <span :class="{ red: result.length > 5 }">{{ result.length }} issues </span><span class="toggle-indicator" v-if="result.length > 0"> </span>
+        <span class="toggle-indicator" v-if="result.length > 0"/>
+        {{ index }} - <span :class="{ red: result.length > 5 }">{{ result.length }} issues </span>
       </h3>
       <result :result="result, index"/>
     </div>
@@ -53,7 +49,6 @@
         </tr>
       </tbody>
     </table>
-
   </div>
 </template>
 
