@@ -2,16 +2,21 @@ $c-blue: #2c3e50;
 $c-dark: #0e2e41;
 $c-light: #008eb0;
 
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: $c-dark;
+
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+  color: #2E2E30;
+}
+.container {
+  max-width:98%;
+}
+
+h1, h2 {
+  font-family: 'Oswald', sans-serif;
 }
 .jumbotron {
   text-align: center;
 }
-
 thead {
   background-color: $c-dark;
   color: #fff;
@@ -38,20 +43,17 @@ a[target='_blank']::after {
 .red {
   color: red;
 }
-
-.result-container {
-  margin: 20px 5px;
+.green {
+  color: limegreen;
 }
 
+.result-container {
+  padding: 15px 0;
+}
 
 /* css toggle for link tables */
 h3 {
   font-size: 1.2rem;
-}
-.toggle-indicator::after {
-  font-size: 16px;
-  color: $c-light;
-  content: '+';
 }
 h3 + table {
   display: none;
@@ -59,9 +61,5 @@ h3 + table {
 h3.activeTable {
   & + table {
     display: table;
-  }
-
-  .toggle-indicator::after {
-    content: 'x'
   }
 }

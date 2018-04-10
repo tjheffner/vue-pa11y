@@ -21,7 +21,13 @@ npm run build
 npm run build --report
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## How to use
+
+Fill out an array of URLs inside `.pa11yci` and any configuration options you need. Then run `npm run report` to generate the .json file used by the dashboard.
+`npm run dev` to see it locally, or `npm run build` for the entire thing. A dashboard breakdown of the overall data, as well as a more comprehensive breakdown for each issue per site is generated. Happy testing!
+
+
+For a detailed explanation on how things work under the hood, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
 ## pa11y-ci
 
@@ -38,8 +44,3 @@ Configuration options are set in .pa11yci. See [pa11y-ci](https://github.com/pa1
 ```
 
 If your site has a sitemap, that can be passed in as an option in the package.json `report` command, e.g. `pa11y-ci --sitemap http://example.com/sitemap.xml -j > pa11y-report.json`. This will check the urls in your sitemap, __in addition to__ any links defined inside the `.pa11yci` urls array noted above.
-
-## How to use
-
-Fill out an array of URLs and any configuration options you need, run `npm run report` to generate the .json file used by the dashboard.
-`npm run dev` to see it locally, or `npm run build` for the entire thing. A dashboard breakdown of the overall data, as well as a more comprehensive breakdown for each issue per site is generated. Happy testing!

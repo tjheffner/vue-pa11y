@@ -26,8 +26,8 @@
     <div v-for="(result, index) in data.results" class="result-container">
       <h3 @click="$set(result, 'selected', !result.selected)"
           :class="{ activeTable: result.selected }">
-        <span class="toggle-indicator" v-if="result.length > 0"/>
-        {{ index }} - <span :class="{ red: result.length > 5 }">{{ result.length }} issues </span>
+        <i class="fa" v-if="result.length > 0" aria-hidden="true" :class="{ 'fa-minus': result.selected, 'fa-plus': !result.selected }"></i>
+        {{ index }} - <span :class="{ red: result.length > 5, green: result.length == 0 }">{{ result.length }} issues </span>
       </h3>
       <result :result="result, index"/>
     </div>
@@ -85,7 +85,13 @@ export default {
     ]),
     ...mapGetters([
       'getListOfErrors'
-    ])
+    ]),
+    iconClass: function () {
+      return {
+        'fa-minus': !result.selected,
+        'fa-plus': result.selected
+      }
+    }
   },
   created() {
     this.$store.dispatch('pa11yData');
