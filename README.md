@@ -34,10 +34,10 @@ For a detailed explanation on how things work under the hood, check out the [gui
 Configuration options are set in .pa11yci. See [pa11y-ci](https://github.com/pa11y/pa11y-ci) for more information on specific options. At the very least, a list of urls to test on is needed.
 
 ```js
-{ 
+{
   urls: [
     "http://example.com",
-    "htp://another-example.com",
+    "http://www.another-example.com",
     "http://a.third.link.io/to/test"
   ]
 }
