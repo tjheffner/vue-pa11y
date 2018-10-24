@@ -5,7 +5,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import _ from 'lodash';
-import * as data from '../pa11y-report.json';
+import * as data from '../report.json';
 
 Vue.use(Vuex);
 
