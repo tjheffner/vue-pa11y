@@ -22,6 +22,26 @@
       </tbody>
     </table>
 
+    <h2>Error List</h2>
+    <table class="table table-striped table-hover table-bordered">
+      <thead>
+      <tr>
+        <th>Show</th>
+        <th>Error Code</th>
+        <th>Error Name</th>
+        <th>Count</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="(value, key) in errorList">
+        <td><input type="checkbox"></td>
+        <td><a target="_blank" :href="'https://www.w3.org/TR/WCAG20-TECHS/' + getURICode(key)">{{ getURICode(key) }}</a></td>
+        <td>{{ key }} </td>
+        <td :class="{ red: value > 5 }">{{ value }}</td>
+      </tr>
+      </tbody>
+    </table>
+
     <h2>Link Breakdown</h2>
     <div v-for="(result, index) in data.results" class="result-container">
       <h3 @click="$set(result, 'selected', !result.selected)"
@@ -32,23 +52,6 @@
       <result :result="result, index"/>
     </div>
 
-    <h2>Unique Errors</h2>
-    <table class="table table-striped table-hover table-bordered">
-      <thead>
-        <tr>
-          <th>Error Code</th>
-          <th>Error Name</th>
-          <th>Count</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(value, key) in errorList">
-          <td><a target="_blank" :href="'https://www.w3.org/TR/WCAG20-TECHS/' + getURICode(key)">{{ getURICode(key) }}</a></td>
-          <td>{{ key }} </td>
-          <td :class="{ red: value > 5 }">{{ value }}</td>
-        </tr>
-      </tbody>
-    </table>
   </div>
 </template>
 
