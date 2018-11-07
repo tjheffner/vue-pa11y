@@ -34,7 +34,7 @@
       </thead>
       <tbody>
       <tr v-for="(value, key) in errorList">
-        <td><input type="checkbox"></td>
+        <td><input type="checkbox" checked></td>
         <td><a target="_blank" :href="'https://www.w3.org/TR/WCAG20-TECHS/' + getURICode(key)">{{ getURICode(key) }}</a></td>
         <td>{{ key }} </td>
         <td :class="{ red: value > 5 }">{{ value }}</td>

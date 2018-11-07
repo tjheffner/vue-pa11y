@@ -16,6 +16,7 @@ h1, h2 {
 }
 .jumbotron {
   text-align: center;
+  padding-top: 6rem;
 }
 thead {
   background-color: $c-dark;
@@ -35,10 +36,6 @@ a {
     text-decoration: none
   }
 }
-/* adds external link icon */
-a[target='_blank']::after {
-  content: '\29C9';
-}
 
 .red {
   color: red;
@@ -51,6 +48,43 @@ a[target='_blank']::after {
   padding: 15px 0;
 }
 
+
+
+// NEW STYLES
+.section {
+  border: 1px solid $c-blue;
+  margin-bottom: 2rem;
+}
+.section-header {
+  background: #e9ecef;
+  padding: 1rem;
+  color: $c-dark;
+  border-bottom: 1px solid $c-blue;
+}
+.section-contents {
+  display: flex;
+  padding: 1rem;
+  justify-content: flex-start;
+
+  * {
+    flex: 1;
+  }
+}
+
+.stats {
+}
+
+
+/* adds external link icon */
+a[target='_blank']::after {
+  content: '\29C9';
+}
+/* not in the nav though */
+.dropdown-item, .nav-item {
+  a[target='_blank']::after {
+    display: none;
+  }
+}
 /* css toggle for link tables */
 h3 {
   font-size: 1.2rem;

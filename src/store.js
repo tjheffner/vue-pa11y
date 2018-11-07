@@ -24,7 +24,7 @@ const mutations = {
   ADD_DATA(state, items) {
     state.data = items;
   },
-  ADD_RESULTS(state, items) {
+  PROCESS_RESULTS(state, items) {
     state.results = items;
   },
 };
@@ -34,19 +34,21 @@ const mutations = {
  */
 const actions = {
   // get the json generated from the `npm run report` script
-  pa11yData: ({ commit }) => {
+  reportData: ({ commit }) => {
     commit('ADD_DATA', data );
   },
-  processResults: ({ commit }) => {
-
+  // make results easier to work with
+  results: ({ commit }) => {
     let modified = _.map(state.data.results, function(value, index) {
+
+      // add the site name to each result object
+      value.forEach(value => value.site = index);
       return [value];
     });
-
     modified = _.flattenDeep(modified);
 
-    commit('ADD_RESULTS', modified);
-  },
+    commit('PROCESS_RESULTS', modified);
+  }
 };
 
 /**
