@@ -1,32 +1,13 @@
 $c-blue: #2c3e50;
 $c-dark: #0e2e41;
 $c-light: #008eb0;
-
+$c-background: #e9ecef;
+$c-text: #2e2e30;
+$c-error: red;
 
 body {
   font-family: 'Source Sans Pro', sans-serif;
-  color: #2E2E30;
-}
-.container {
-  max-width:98%;
-}
-
-h1, h2 {
-  font-family: 'Oswald', sans-serif;
-}
-.jumbotron {
-  text-align: center;
-  padding-top: 6rem;
-}
-thead {
-  background-color: $c-dark;
-  color: #fff;
-}
-th {
-  font-weight: 400;
-}
-.table-hover tbody tr:hover td {
-  background-color: #e2e2e2;
+  color: $c-text;
 }
 a {
   color: $c-light;
@@ -36,27 +17,18 @@ a {
     text-decoration: none
   }
 }
-
+.container {
+  max-width:98%;
+}
 .red {
-  color: red;
+  color: $c-error;
 }
-.green {
-  color: limegreen;
-}
-
-.result-container {
-  padding: 15px 0;
-}
-
-
-
-// NEW STYLES
 .section {
   border: 1px solid $c-blue;
   margin-bottom: 2rem;
 }
-.section-header {
-  background: #e9ecef;
+.section-header, .result-header {
+  background: $c-background;
   padding: 1rem;
   color: $c-dark;
   border-bottom: 1px solid $c-blue;
@@ -64,12 +36,16 @@ a {
 .section-contents {
   display: flex;
   padding: 1rem;
-  justify-content: flex-start;
+  justify-content: space-between;
 
   * {
     flex: 1;
   }
 }
 
-.stats {
+.result {
+  padding: 1rem 0;
+}
+.result-header {
+  border: 1px solid $c-blue;
 }

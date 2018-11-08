@@ -4,10 +4,9 @@
 
     <div class="section-contents">
       <div class="pie-chart">
-        <pie-chart
+        <bar-chart
           :data="[['Passes', data.passes], ['Failures', data.total - data.passes]]"
-          :colors="['limegreen', 'red']"
-        ></pie-chart>
+        ></bar-chart>
       </div>
 
       <div class="stats">
@@ -19,6 +18,14 @@
           <li>Unique Errors: {{ uniqueErrors }}</li>
         </ul>
       </div>
+
+      <div class="pie-chart">
+        <pie-chart
+          :data="siteCount"
+          :legend="false"
+        ></pie-chart>
+      </div>
+
     </div>
 
   </div>
@@ -45,6 +52,7 @@
       ]),
       ...mapGetters([
         'uniqueErrors',
+        'siteCount'
       ])
     },
   }

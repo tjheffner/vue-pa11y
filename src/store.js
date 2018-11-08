@@ -77,12 +77,42 @@ const actions = {
  * GETTERS
  */
 const getters = {
+  // a list of errors and their # of occurrences
   getListOfErrors: state => {
     return _.countBy(state.results, 'code');
   },
+
+  // # of errors in list above
   uniqueErrors: (state, getters) => {
     return _.size(getters.getListOfErrors);
   },
+
+  // state helpers
+  results: state => state.results,
+  errorList: state => state.errorList,
+
+  // helper array of tested links (array keys in state.data.results)
+  getLinks: (state) => {
+    const links = _.map(state.data.results, function (value, index) {
+      return [index];
+    });
+
+    return _.flattenDeep(links);
+  },
+
+  // match new result object (with included site) with each link
+  getErrorsForLink: (state, getters) => (link) => {
+    return getters.results.filter(result => result.site === link)
+  },
+
+  // # of errors per site, used for a graph.
+  siteCount: (state) => {
+    const siteCount = _.map(state.data.results, function (value, index) {
+      return [index, value.length]
+    });
+
+    return siteCount;
+  }
 };
 
 export default new Vuex.Store({

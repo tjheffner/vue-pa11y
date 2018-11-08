@@ -32,17 +32,17 @@
 
     <stats/>
     <errors/>
-    <!--<links/>-->
+    <results/>
+
   </div>
 </template>
 
 <script>
-import report from './components/report';
 import stats from './components/stats';
 import errors from './components/errors';
+import results from './components/results';
 import { mapGetters, mapActions, mapState } from 'vuex'
 
-//import links from './components/links';
 
 export default {
   name: 'App',
@@ -50,10 +50,9 @@ export default {
     return {}
   },
   components: {
-    report,
     stats,
     errors,
-//    links,
+    results,
   },
   created () {
     this.loadReportData();
