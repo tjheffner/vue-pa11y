@@ -58,17 +58,22 @@ export default {
   created () {
     this.loadReportData();
     this.loadResultData();
+    this.loadErrorData();
   },
   methods: {
     ...mapActions([
       'reportData',
       'results',
+      'errors',
     ]),
     loadReportData () {
       this.$store.dispatch('reportData');
     },
     loadResultData () {
       this.$store.dispatch('results');
+    },
+    loadErrorData () {
+      this.$store.dispatch('errors');
     }
   }
 }

@@ -73,27 +73,3 @@ a {
 
 .stats {
 }
-
-
-/* adds external link icon */
-a[target='_blank']::after {
-  content: '\29C9';
-}
-/* not in the nav though */
-.dropdown-item, .nav-item {
-  a[target='_blank']::after {
-    display: none;
-  }
-}
-/* css toggle for link tables */
-h3 {
-  font-size: 1.2rem;
-}
-h3 + table {
-  display: none;
-}
-h3.activeTable {
-  & + table {
-    display: table;
-  }
-}

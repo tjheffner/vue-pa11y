@@ -16,7 +16,7 @@
           <li>Links passed: {{ data.passes }}</li>
           <li>Success Rate: {{ Math.round((data.passes / data.total) * 100) }}%</li>
           <li>Issues found: <span :class="{ red: data.errors > 5 }">{{ data.errors }}</span></li>
-          <li>Unique Errors: {{ uniques }}</li>
+          <li>Unique Errors: {{ uniqueErrors }}</li>
         </ul>
       </div>
     </div>
@@ -36,19 +36,16 @@
   export default {
     name: 'stats',
     data () {
-      return {
-        uniques: 0,
-      }
+      return {}
     },
     computed: {
       ...mapState([
         'data',
         'results',
       ]),
+      ...mapGetters([
+        'uniqueErrors',
+      ])
     },
-    created () {
-      this.uniques = _.size(this.$store.getters.getListOfErrors);
-    }
-
   }
 </script>
