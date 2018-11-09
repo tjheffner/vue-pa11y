@@ -35,7 +35,7 @@ a {
 }
 .section-contents {
   display: flex;
-  padding: 1rem;
+  padding: 1rem 1rem 2rem 1rem;
   justify-content: space-between;
 
   * {
@@ -48,4 +48,11 @@ a {
 }
 .result-header {
   border: 1px solid $c-blue;
+  display: flex;
+  justify-content: space-between;
+
+  button {
+    flex: 0 1 auto;
+    border-radius: 50%;
+  }
 }

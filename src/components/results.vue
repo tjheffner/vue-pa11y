@@ -3,9 +3,11 @@
     <h2 class="section-header">Detailed Breakdown</h2>
     <div class="section-contents">
       <div class="result-container">
-        <div v-for="(link, index) in getLinks">
-          <result :result="link, index" />
-        </div>
+        <result v-for="(link, index) in getLinks"
+                  :result="link, index"
+                  :visible="true"
+                  :key="index"
+        />
       </div>
     </div>
   </div>

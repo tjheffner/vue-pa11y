@@ -107,11 +107,9 @@ const getters = {
 
   // # of errors per site, used for a graph.
   siteCount: (state) => {
-    const siteCount = _.map(state.data.results, function (value, index) {
+    return _.map(state.data.results, function (value, index) {
       return [index, value.length]
     });
-
-    return siteCount;
   }
 };
 
