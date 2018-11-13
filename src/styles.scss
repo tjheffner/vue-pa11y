@@ -42,7 +42,6 @@ a {
     flex: 1;
   }
 }
-
 .result {
   padding: 1rem 0;
 }
@@ -53,6 +52,10 @@ a {
 
   button {
     flex: 0 1 auto;
-    border-radius: 50%;
+    width: 100px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    background-color: $c-light;
+    color: $c-background;
   }
 }
