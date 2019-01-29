@@ -22,8 +22,7 @@
               v-if="checkErrorVisibility(item.code)"
           >
             <td>
-              <a target="_blank" :href="'https://www.w3.org/TR/WCAG20-TECHS/'
-              + item.code | getURICode ">{{ item.code | getURICode }}</a>
+              <a target="_blank" :href="`https://www.w3.org/TR/WCAG20-TECHS/${findURICode(item.code)}`">{{ findURICode(item.code) }}</a>
             </td>
             <td>{{ item.message }}</td>
             <td>{{ item.context }}</td>
@@ -72,7 +71,16 @@
       toggle() {
         this.display = !this.display;
         this.buttonText = this.display ? 'Hide' : 'Show';
-      }
+      },
+      findURICode(string) {
+        if (!string) return '';
+        string = string.toString();
+
+        // @TODO: handle multi-code matches i.e. H53,ARIA6
+        const re = /Principle.*([A-Z]+[0-9]+(,[A-Z]+[0-9]+)*)/g;
+        const code = re.exec(string);
+        return code[1];
+      },
     }
   }
 </script>

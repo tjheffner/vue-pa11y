@@ -1,6 +1,6 @@
 <template>
   <div class="section">
-    <h2 class="section-header">Detailed Breakdown</h2>
+    <h2 id="results" class="section-header">Detailed Breakdown</h2>
     <div class="section-contents">
       <div class="result-container">
         <result v-for="(link, index) in getLinks"

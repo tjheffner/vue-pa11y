@@ -1,9 +1,9 @@
 <template>
   <div class="section">
-    <h2 class="section-header">Breakdown</h2>
+    <h2 id="breakdown" class="section-header">Breakdown</h2>
     <div class="section-contents">
 
-      <div class="stats">
+      <div class="stats p-4">
         <ul>
           <li>Links checked: {{ data.total }}</li>
           <li>Links passed: {{ data.passes }}</li>
@@ -19,15 +19,6 @@
           :colors="[['limegreen', 'red']]"
         ></bar-chart>
       </div>
-
-      <div class="chart">
-        <p style="text-align: center;">Mouseover pieces to see a site's share of total errors.</p>
-        <pie-chart
-          :data="siteCount"
-          :legend="false"
-        ></pie-chart>
-      </div>
-
     </div>
   </div>
 </template>

@@ -10,6 +10,11 @@
           <li class="nav-item"><a class="nav-link" href="http://pa11y.org/" target="_blank" title="Pa11y Homepage">What is Pa11y?</a></li>
           <li class="nav-item"><a class="nav-link" href="https://github.com/pa11y/pa11y#configuration" target="_blank"  title="Technical Documentation">Documentation</a></li>
         </ul>
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item"><a href="#breakdown" class="nav-link">At a Glance</a></li>
+          <li class="nav-item"><a href="#errorlist" class="nav-link">Errors</a></li>
+          <li class="nav-item"><a href="#results" class="nav-link">Results</a></li>
+        </ul>
         <ul class="navbar-nav ml-auto">
           <li role="separator" class="dropdown-divider"></li>
           <li class="nav-item dropdown">
