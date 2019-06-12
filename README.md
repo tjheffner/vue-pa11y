@@ -16,7 +16,7 @@ services:
   pa11y:
     image: outrigger/pa11y:dev
     container_name: pa11y
-    command: bash -c "cd /code/pa11y && pa11y-ci --json > report.json"
+    command: bash -c "cd /code/pa11y && pa11y-ci --config /code/pa11y/config.json --json > report.json"
     volumes:
       # pa11y-ci works by default with a .pa11yci file
       - ./tests/pa11y/:/code/pa11y/
@@ -42,47 +42,18 @@ The first service uses an image that contains both pa11y and pa11y-ci. It looks 
 
 The second service runs this dashboard in dev mode, and makes it available outside of the container at `www.pa11y.vm/`. It looks at `./tests/pa11y/` to ingest the generated report.json from the first service. By running in dev mode, the service can be run once, and will automatically update every time the pa11y service is re-run.
 
-## Local Build Setup
-``` bash
-# install pa11y-ci for local use [skip if using docker]
-npm install --save pa11y-ci
-
-# install dependencies
-npm install
-
-# generate pa11y report [skip if using docker]
-npm run report
-
-# serve with hot reload at 0.0.0.0:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-```
-
-## How to use
-
-
-### With Docker [preferred]
-1. Fill out an array of URLs inside of `./tests/pa11y/.pa11yci` and any configuration options you need. If you use a different directory than this on your project, be sure to update the volume mounts accordingly.
-2. Run `docker-compose run pa11y`
+## With Docker [preferred]
+1. Fill out an array of URLs inside of `./tests/pa11y/.pa11yci.js` and any configuration options you need. If you use a different directory than this on your project, be sure to update the volume mounts accordingly.
+2. Run `npm run report` to convert the config to json.
+2. Run `docker-compose run pa11y` to test with that config.
 3. Run `docker-compose run dashboard` and visit www.pa11y.vm:8080/
 4. Re-run `docker-compose run pa11y` when you need to re-test after making changes.
-
-### Locally
-0. Install pa11y-ci as a project dependency (`npm install --save pa11y-ci`)
-1. Fill out an array of URLs inside of `./tests/pa11y/.pa11yci` and any configuration options you need.
-2. Run `npm run report` to generate the .json file used by the dashboard.
-3. `npm run dev` to see results locally at 0.0.0.0:8080/
 
 For a detailed explanation on how things work under the hood, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
 ## pa11y-ci
 
-Configuration options are set in `./tests/pa11y/.pa11yci`. See [pa11y-ci](https://github.com/pa11y/pa11y-ci) for more information on specific options. At the very least, a list of urls to test on is needed.
+Configuration options are set in `./tests/pa11y/.pa11yci.js`. See [pa11y-ci](https://github.com/pa11y/pa11y-ci) for more information on specific options. At the very least, a list of urls to test on is needed. This .js file will get converted to a config.json, which is consumed by the docker container that actually runs pa11y-ci. 
 
 ```js
 {

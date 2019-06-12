@@ -13,5 +13,6 @@ yarn-error.log*
 *.njsproj
 *.sln
 
-# generated report
-pa11y-report.json
+# generated config & report
+/tests/pa11y/report.json
+/tests/pa11y/config.json

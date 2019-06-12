@@ -6,7 +6,7 @@ services:
   pa11y:
     image: outrigger/pa11y:dev
     container_name: pa11y
-    command: bash -c "cd /code/pa11y && pa11y-ci --json > report.json"
+    command: bash -c "cd /code/pa11y && pa11y-ci --config /code/pa11y/config.json --json > report.json"
     volumes:
       # pa11y-ci works by default with a .pa11yci file
       - ./tests/pa11y/:/code/pa11y/

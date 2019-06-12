@@ -8,7 +8,7 @@
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "build": "node build/build.js",
-    "report": "pa11y-ci -j > pa11y-report.json"
+    "report": "node ./tests/pa11y/pa11y2json.js"
   },
   "dependencies": {
     "chart.js": "^2.7.3",
