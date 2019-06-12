@@ -43,7 +43,7 @@ const mutations = {
 const actions = {
   // get the json generated from the  script
   reportData: ({ commit }) => {
-    commit('ADD_DATA', data );
+    commit('ADD_DATA', data.default);
   },
   // make results easier to work with
   results: ({ commit }) => {
@@ -94,40 +94,20 @@ const actions = {
  * GETTERS
  */
 const getters = {
+  // state helpers
+  results: state => state.results,
+  errorList: state => state.errorList,
+  siteList: state => state.siteList,
+
   // a list of errors and their # of occurrences
   getListOfErrors: state => {
     return _.countBy(state.results, 'code');
   },
-
   // # of errors in list above
   uniqueErrors: (state, getters) => {
     return _.size(getters.getListOfErrors);
   },
 
-  // state helpers
-  results: state => state.results,
-  errorList: state => state.errorList,
-
-  // helper array of tested links (array keys in state.data.results)
-  getLinks: (state) => {
-    const links = _.map(state.data.results, function (value, index) {
-      return [index];
-    });
-
-    return _.flattenDeep(links);
-  },
-
-  // match new result object (with included site) with each link
-  getErrorsForLink: (state, getters) => (link) => {
-    return getters.results.filter(result => result.site === link)
-  },
-
-  // # of errors per site, used for a graph.
-  siteCount: (state) => {
-    return _.map(state.data.results, function (value, index) {
-      return [index, value.length]
-    });
-  }
 };
 
 export default new Vuex.Store({

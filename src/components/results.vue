@@ -1,20 +1,22 @@
 <template>
   <div class="block row result-container">
 
-    <div class="block col-5" v-for="(link, index) in getLinks">
-      {{ link }}
+    <div class="block col-5" v-for="(site, index) in siteList" v-if="site.show" :key="index">
+      <p>{{ site.name }}</p>
+      <div class="row">
+        <p class="block">{{ site.notices }}</p>
+        <p class="block">{{ site.warnings }}</p>
+        <p class="block">{{ site.errors }}</p>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
   import { mapState, mapGetters } from 'vuex'
-  import _ from 'lodash'
-  import result from './result';
 
   export default {
     name: 'results',
-    components: { result },
     data () {
       return {}
     },
@@ -24,7 +26,7 @@
         'results',
       ]),
       ...mapGetters([
-        'getLinks',
+        'siteList',
       ]),
     }
   }

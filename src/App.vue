@@ -21,9 +21,9 @@
 import navbar from './components/navbar';
 import stats from './components/stats';
 import filters from './components/filters';
-
 import results from './components/results';
-import { mapGetters, mapActions, mapState } from 'vuex'
+
+import { mapActions } from 'vuex'
 
 
 export default {
@@ -39,8 +39,6 @@ export default {
   },
   created () {
     this.loadReportData();
-    this.loadResultData();
-    this.loadErrorData();
   },
   methods: {
     ...mapActions([
@@ -50,14 +48,10 @@ export default {
     ]),
     loadReportData () {
       this.$store.dispatch('reportData');
-    },
-    loadResultData () {
-      this.$store.dispatch('results');
       this.$store.dispatch('sites');
-    },
-    loadErrorData () {
       this.$store.dispatch('errors');
-    }
+      this.$store.dispatch('results');
+    },
   }
 }
 </script>
