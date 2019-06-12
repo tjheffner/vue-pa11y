@@ -16,6 +16,7 @@ const state = {
   data: '',
   results: [],
   errorList: [],
+  siteList: [],
 };
 
 /**
@@ -30,7 +31,10 @@ const mutations = {
   },
   PROCESS_ERRORS(state, items) {
     state.errorList = items;
-  }
+  },
+  PROCESS_SITES(state, items) {
+    state.siteList = items;
+  },
 };
 
 /**
@@ -70,6 +74,16 @@ const actions = {
       );
 
     context.commit('PROCESS_ERRORS', modified);
+  },
+  sites: ({ commit }) => {
+    const sites = Object.keys(state.data.results)
+      .map(value => ({
+          name: value,
+          show: true,
+        })
+      );
+
+    commit('PROCESS_SITES', sites);
   }
 };
 

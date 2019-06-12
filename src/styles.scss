@@ -3,59 +3,48 @@ $c-dark: #0e2e41;
 $c-light: #008eb0;
 $c-background: #e9ecef;
 $c-text: #2e2e30;
+
 $c-error: red;
+$c-warning: goldenrod;
+$c-notice: $c-light;
 
 body {
   font-family: 'Source Sans Pro', sans-serif;
   color: $c-text;
 }
-a {
-  color: $c-light;
-
-  &:hover {
-    color: $c-dark;
-    text-decoration: none
-  }
+#logo {
+  border-right: 2px solid rgba(0,0,0,.5);
+  color: black;
 }
 .container {
-  max-width:98%;
+  max-width: 100%;
 }
 .red {
   color: $c-error;
 }
-.section {
-  border: 1px solid $c-blue;
-  margin-bottom: 2rem;
-}
-.section-header, .result-header {
+.sidebar {
   background: $c-background;
-  padding: 1rem;
-  color: $c-dark;
-  border-bottom: 1px solid $c-blue;
+  height: 100%;
 }
-.section-contents {
-  display: flex;
-  padding: 1rem 1rem 2rem 1rem;
-  justify-content: space-between;
+.sidebar-block {
+  border: 1px solid $c-blue;
+  background: rgba($c-blue, .2);
+  font-size: 1.25rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
 
-  * {
-    flex: 1;
+  ul {
+    list-style-type: none;
   }
 }
-.result {
-  padding: 1rem 0;
-}
-.result-header {
-  border: 1px solid $c-blue;
+.filter {
   display: flex;
-  justify-content: space-between;
+  align-items: baseline;
+  font-size: 1rem;
+  word-break: break-word;
 
-  button {
-    flex: 0 1 auto;
-    width: 100px;
-    border-radius: 5px;
-    text-transform: uppercase;
-    background-color: $c-light;
-    color: $c-background;
+  a {
+    margin-left: 1rem;
+    color: $c-light;
   }
 }
