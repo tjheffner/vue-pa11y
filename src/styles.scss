@@ -11,6 +11,7 @@ $c-notice: $c-light;
 body {
   font-family: 'Source Sans Pro', sans-serif;
   color: $c-text;
+  background: $c-background;
 }
 #logo {
   border-right: 2px solid rgba(0,0,0,.5);
@@ -23,10 +24,9 @@ body {
   color: $c-error;
 }
 .sidebar {
-  background: $c-background;
   height: 100%;
 }
-.sidebar-block {
+.block {
   border: 1px solid $c-blue;
   background: rgba($c-blue, .2);
   font-size: 1.25rem;
@@ -46,5 +46,19 @@ body {
   a {
     margin-left: 1rem;
     color: $c-light;
+  }
+  span {
+    margin-left: .5rem;
+    color: rgba($c-text, .5);
+  }
+}
+
+.result-container {
+  justify-content: flex-start;
+  max-height: 40%;
+  overflow-y: scroll;
+
+  .block {
+    margin: .5rem;
   }
 }

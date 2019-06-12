@@ -80,6 +80,9 @@ const actions = {
       .map(value => ({
           name: value,
           show: true,
+          errors: 'test',
+          warnings: 'test',
+          notices: 'test',
         })
       );
 

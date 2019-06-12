@@ -8,8 +8,9 @@
 
         <filters />
       </div>
-      <div class="main col-9">
-        <div>results container of all sites here</div>
+      <div class="main col-9 p-3">
+        <results/>
+
         <div>detailed breakdown per site if one is selected</div>
       </div>
     </div>
@@ -21,8 +22,7 @@ import navbar from './components/navbar';
 import stats from './components/stats';
 import filters from './components/filters';
 
-//import errors from './components/errors';
-//import results from './components/results';
+import results from './components/results';
 import { mapGetters, mapActions, mapState } from 'vuex'
 
 
@@ -35,8 +35,7 @@ export default {
     navbar,
     stats,
     filters,
-//    errors,
-//    results,
+    results,
   },
   created () {
     this.loadReportData();

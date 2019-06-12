@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar-block">
+  <div class="block">
     <ul class="mb-0 pl-0">
       <li>Links checked: {{ data.total }}</li>
       <li>Links passed: {{ data.passes }}</li>

@@ -1,11 +1,12 @@
 <template>
-  <div class="sidebar-block">
+  <div class="block">
 
-    <p class="mb-0">Errors</p>
+    <p class="mb-0">Unique Errors</p>
     <ul class="mb-0 pl-0">
       <li class="filter" v-for="error in errorList">
         <input type="checkbox" v-model="error.show">
-        <a target="_blank" :href="`https://www.w3.org/TR/WCAG20-TECHS/${findURICode(error.name)}`">{{ error.name }}</a>
+        <a target="_blank" :href="`https://www.w3.org/TR/WCAG20-TECHS/${findURICode(error.name)}`">{{ findURICode(error.name) }}</a>
+        <span> [{{ error.count }}]</span>
       </li>
     </ul>
 
