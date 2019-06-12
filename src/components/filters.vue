@@ -1,12 +1,12 @@
 <template>
   <div class="block">
 
-    <p class="mb-0">Unique Errors</p>
+    <p class="mb-0">Unique Issues</p>
     <ul class="mb-0 pl-0">
-      <li class="filter" v-for="(error, index) in errorList" :key="index">
-        <input type="checkbox" v-model="error.show">
-        <a>{{ error.name }}</a>
-        <span> [{{ error.count }}]</span>
+      <li class="filter" v-for="(issue, index) in issueList" :key="index">
+        <input type="checkbox" v-model="issue.show">
+        <a>{{ issue.name }}</a>
+        <span> [{{ issue.count }}]</span>
       </li>
     </ul>
 
@@ -33,12 +33,12 @@
       ...mapState([
         'data',
         'results',
-        'errorList',
+        'issueList',
         'siteList',
       ]),
       ...mapGetters([
-        'getListOfErrors',
-        'uniqueErrors',
+        'getListOfIssues',
+        'uniqueIssues',
       ])
     },
   }

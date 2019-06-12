@@ -5,7 +5,7 @@
       <li>Links passed: {{ data.passes }}</li>
       <li>Success Rate: {{ Math.round((data.passes / data.total) * 100) }}%</li>
       <li>Issues found: <span :class="{ red: data.errors > 5 }">{{ data.errors }}</span></li>
-      <li>Unique Errors: {{ uniqueErrors }}</li>
+      <li>Unique Issues: {{ uniqueIssues }}</li>
     </ul>
   </div>
 </template>
@@ -24,7 +24,7 @@
         'results',
       ]),
       ...mapGetters([
-        'uniqueErrors',
+        'uniqueIssues',
         'siteCount'
       ])
     },

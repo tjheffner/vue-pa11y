@@ -15,8 +15,9 @@ Vue.use(Vuex);
 const state = {
   data: '',
   results: [],
-  errorList: [],
+  issueList: [],
   siteList: [],
+  activeResult: null,
 };
 
 /**
@@ -29,12 +30,15 @@ const mutations = {
   PROCESS_RESULTS(state, items) {
     state.results = items;
   },
-  PROCESS_ERRORS(state, items) {
-    state.errorList = items;
+  PROCESS_ISSUES(state, items) {
+    state.issueList = items;
   },
   PROCESS_SITES(state, items) {
     state.siteList = items;
   },
+  PROCESS_ACTIVE_RESULT(state, item) {
+    state.activeResult = item;
+  }
 };
 
 /**
@@ -58,9 +62,9 @@ const actions = {
     commit('PROCESS_RESULTS', modified);
   },
   // create array of unique error objects with count, code, and violating urls present.
-  errors: (context) => {
+  issues: (context) => {
     // we map the object from getListOfErrors to our new objects
-    const modified = Object.entries(context.getters.getListOfErrors)
+    const modified = Object.entries(context.getters.getListOfIssues)
       .map(([name, count]) => ({
         name,
         count,
@@ -73,7 +77,7 @@ const actions = {
         })
       );
 
-    context.commit('PROCESS_ERRORS', modified);
+    context.commit('PROCESS_ISSUES', modified);
   },
   sites: ({ commit }) => {
     const sites = Object.keys(state.data.results)
@@ -87,7 +91,10 @@ const actions = {
       );
 
     commit('PROCESS_SITES', sites);
-  }
+  },
+  setActiveResult: ({ commit }, item) => {
+    commit('PROCESS_ACTIVE_RESULT', item);
+  },
 };
 
 /**
@@ -96,16 +103,16 @@ const actions = {
 const getters = {
   // state helpers
   results: state => state.results,
-  errorList: state => state.errorList,
+  issueList: state => state.issueList,
   siteList: state => state.siteList,
 
-  // a list of errors and their # of occurrences
-  getListOfErrors: state => {
+  // a list of issues and their # of occurrences
+  getListOfIssues: state => {
     return _.countBy(state.results, 'code');
   },
-  // # of errors in list above
-  uniqueErrors: (state, getters) => {
-    return _.size(getters.getListOfErrors);
+  // # of unique issues in list above
+  uniqueIssues: (state, getters) => {
+    return _.size(getters.getListOfIssues);
   },
 
 };
