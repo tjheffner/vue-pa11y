@@ -80,6 +80,7 @@ const actions = {
 
     commit('PROCESS_ISSUES', modified);
   },
+  // create
   sites: ({ commit }) => {
     const sites = Object.entries(state.data.results)
       .map(([key, value]) => {
@@ -101,6 +102,7 @@ const actions = {
 
     commit('PROCESS_SITES', sites);
   },
+  // sets click site as active site, displaying individual results.
   setActiveResult: ({ commit }, item) => {
     commit('PROCESS_ACTIVE_RESULT', item);
   },
@@ -110,11 +112,6 @@ const actions = {
  * GETTERS
  */
 const getters = {
-  // state helpers
-  results: state => state.results,
-  issueList: state => state.issueList,
-  siteList: state => state.siteList,
-
   // a list of issues and their # of occurrences
   getListOfIssues: state => {
     return _.countBy(state.results, 'code');
@@ -123,12 +120,20 @@ const getters = {
   uniqueIssues: (state, getters) => {
     return _.size(getters.getListOfIssues);
   },
+  // full count of warnings, notices, errors for filter stats.
+  getStats: state => {
+    return _.countBy(state.results, 'type')
+  },
   // get the full results for a site based on activeResult selection.
   getActiveResults: state => {
     if (state.activeResult) {
-      return state.results.filter(({ site }) => site === state.activeResult.name)
+      return state.results.filter(result => {
+        return state.issueList.some(issue => {
+          return result.site === state.activeResult.name && result.code === issue.name && issue.show;
+        })
+      })
     }
-  }
+  },
 };
 
 export default new Vuex.Store({
