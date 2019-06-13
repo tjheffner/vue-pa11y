@@ -23,7 +23,7 @@ services:
     cap_add:
       - SYS_ADMIN
 
-  # a service to spin up the pa11y result dashboard
+  # a service to spin up this pa11y result dashboard
   # docker-compose run --rm dashboard
   dashboard:
     image: theffner/vue-pa11y

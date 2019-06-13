@@ -9,9 +9,9 @@
       >
         <p>{{ site.name }}</p>
         <div class="row">
-          <p class="block blue">{{ site.notices }} notices</p>
-          <p class="block yellow">{{ site.warnings }} warnings</p>
-          <p class="block red">{{ site.errors }} errors</p>
+          <p class="block">{{ site.notice }} notices</p>
+          <p class="block">{{ site.warning }} warnings</p>
+          <p class="block">{{ site.error }} errors</p>
         </div>
       </div>
     </div>

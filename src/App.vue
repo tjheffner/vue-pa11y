@@ -50,7 +50,7 @@ export default {
     ...mapActions([
       'reportData',
       'results',
-      'errors',
+      'issues',
     ]),
     loadReportData () {
       this.$store.dispatch('reportData');

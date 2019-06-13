@@ -17,7 +17,7 @@ const state = {
   results: [],
   issueList: [],
   siteList: [],
-  activeResult: null,
+  activeResult: {},
 };
 
 /**
@@ -80,15 +80,39 @@ const actions = {
     context.commit('PROCESS_ISSUES', modified);
   },
   sites: ({ commit }) => {
-    const sites = Object.keys(state.data.results)
-      .map(value => ({
-          name: value,
+    const sites = Object.entries(state.data.results)
+      // .filter(([key, value]) => {
+      // // do shit
+      // return [key, stuff]
+      // })
+      .map(([key, value]) => {
+        const reduction = value.reduce((acc, issue) => {
+          acc[issue.type] += 1;
+          return acc;
+        }, {
+          notice: 0,
+          error: 0,
+          warning: 0
+        });
+
+        return {
+          name: key,
           show: true,
-          errors: 'test',
-          warnings: 'test',
-          notices: 'test',
-        })
-      );
+          ...reduction,
+        }
+      });
+
+
+
+    // const sites = Object.keys(state.data.results)
+    //   .map(value => ({
+    //       name: value,
+    //       show: true,
+    //       errors: 'test',
+    //       warnings: 'test',
+    //       notices: _.filter(state.results, function(o) { return o.type === 'notice'; }),
+    //     })
+    //   );
 
     commit('PROCESS_SITES', sites);
   },
