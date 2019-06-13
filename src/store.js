@@ -69,6 +69,8 @@ const actions = {
           name,
           count,
           show: true,
+          // filter results array to find the first instance of each to note its type (warning, error, etc)
+          type: (state.results.find(result => result.code === name)).type,
           // we filter the results array for each error and create an array of offending urls.
           site: state.results
             .filter(({ code }) => code === name)
@@ -80,17 +82,13 @@ const actions = {
   },
   sites: ({ commit }) => {
     const sites = Object.entries(state.data.results)
-      // .filter(([key, value]) => {
-      // // do shit
-      // return [key, stuff]
-      // })
       .map(([key, value]) => {
         const reduction = value.reduce((acc, issue) => {
           acc[issue.type] += 1;
           return acc;
         }, {
-          notice: 0,
           error: 0,
+          notice: 0,
           warning: 0
         });
 
@@ -100,18 +98,6 @@ const actions = {
           ...reduction,
         }
       });
-
-
-
-    // const sites = Object.keys(state.data.results)
-    //   .map(value => ({
-    //       name: value,
-    //       show: true,
-    //       errors: 'test',
-    //       warnings: 'test',
-    //       notices: _.filter(state.results, function(o) { return o.type === 'notice'; }),
-    //     })
-    //   );
 
     commit('PROCESS_SITES', sites);
   },
