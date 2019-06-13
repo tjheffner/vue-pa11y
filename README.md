@@ -13,7 +13,7 @@ This assumes you have access to npm and docker.
 
 This will install necessary dependencies, convert config to a usuable .json file, run pa11y-ci in a docker container, and then start a webpack dev server locally to see the results in a manageable dashboard.
 
-## Docker Usage
+## Generic Docker Usage
 Add these to the appropriate docker-compose for your project, and get accessible today!
 
 ```docker-compose.yml
@@ -51,6 +51,11 @@ services:
 The first service uses an image that contains both pa11y and pa11y-ci. It looks for your pa11y config inside of `tests/pa11y/`, and uses that inside the image. The command switches to the appropriate folder and runs the test based on your config, and outputs results as a JSon object.
 
 The second service runs this dashboard in dev mode, and makes it available outside of the container at `www.pa11y.vm/`. It looks at `./tests/pa11y/` to ingest the generated report.json from the first service. By running in dev mode, the service can be run once, and will automatically update every time the pa11y service is re-run.
+
+## Usage with Docksal
+To use this dashboard locally with [Docksal](https://docksal.io/), copy the .docksal pa11y command and service definition (both found in the .docksal folder)to your project.
+
+Then, you can run `fin pa11y` to generate a report. Run `fin project up` to bring all of your project's containers up, including the pa11y dashboard. It should then be visible at `http://pa11y.project.docksal/`.
 
 ## pa11y-ci
 
