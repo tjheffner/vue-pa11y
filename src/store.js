@@ -69,8 +69,7 @@ const actions = {
           name,
           count,
           show: true,
-          // we filter the results array for each error and create an array of
-          // offending urls.
+          // we filter the results array for each error and create an array of offending urls.
           site: state.results
             .filter(({ code }) => code === name)
             .reduce((list, { site }) => [...new Set([...list, ...[site]])], []),

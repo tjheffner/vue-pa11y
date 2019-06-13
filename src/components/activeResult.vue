@@ -17,7 +17,7 @@
       </tr>
       </thead>
       <tbody>
-        <tr v-for="item in getActiveResults">
+        <tr v-for="(item, index) in getActiveResults" :key="index">
           <td>{{ item.type }}</td>
           <td>
             <a target="_blank" :href="'https://www.w3.org/TR/WCAG20-TECHS/' + getURICode(item.code)">{{ getURICode(item.code) }}</a>
