@@ -22,7 +22,7 @@
 </template>
 
 <script>
-  import { mapState, mapGetters } from 'vuex'
+  import { mapState } from 'vuex'
 
   export default {
     name: 'filters',
@@ -36,10 +36,6 @@
         'issueList',
         'siteList',
       ]),
-      ...mapGetters([
-        'getListOfIssues',
-        'uniqueIssues',
-      ])
     },
   }
 </script>

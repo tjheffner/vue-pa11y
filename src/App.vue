@@ -54,9 +54,9 @@ export default {
     ]),
     loadReportData () {
       this.$store.dispatch('reportData');
+      this.$store.dispatch('results');
       this.$store.dispatch('sites');
       this.$store.dispatch('issues');
-      this.$store.dispatch('results');
     },
   }
 }

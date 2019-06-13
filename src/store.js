@@ -17,7 +17,7 @@ const state = {
   results: [],
   issueList: [],
   siteList: [],
-  activeResult: {},
+  activeResult: null,
 };
 
 /**
@@ -45,7 +45,7 @@ const mutations = {
  * ACTIONS
  */
 const actions = {
-  // get the json generated from the  script
+  // get the json generated from pa11y-ci
   reportData: ({ commit }) => {
     commit('ADD_DATA', data.default);
   },
@@ -62,22 +62,22 @@ const actions = {
     commit('PROCESS_RESULTS', modified);
   },
   // create array of unique error objects with count, code, and violating urls present.
-  issues: (context) => {
+  issues: ({ commit, getters }) => {
     // we map the object from getListOfErrors to our new objects
-    const modified = Object.entries(context.getters.getListOfIssues)
+    const modified = Object.entries(getters.getListOfIssues)
       .map(([name, count]) => ({
-        name,
-        count,
-        show: true,
-        // we filter the results array for each error and create an array of
-        // offending urls.
-        site: state.results
-          .filter(({ code }) => code === name)
-          .reduce((list, { site }) => [...new Set([...list, ...[site]])], []),
+          name,
+          count,
+          show: true,
+          // we filter the results array for each error and create an array of
+          // offending urls.
+          site: state.results
+            .filter(({ code }) => code === name)
+            .reduce((list, { site }) => [...new Set([...list, ...[site]])], []),
         })
       );
 
-    context.commit('PROCESS_ISSUES', modified);
+    commit('PROCESS_ISSUES', modified);
   },
   sites: ({ commit }) => {
     const sites = Object.entries(state.data.results)
@@ -138,7 +138,12 @@ const getters = {
   uniqueIssues: (state, getters) => {
     return _.size(getters.getListOfIssues);
   },
-
+  // get the full results for a site based on activeResult selection.
+  getActiveResults: state => {
+    if (state.activeResult) {
+      return state.results.filter(({ site }) => site === state.activeResult.name)
+    }
+  }
 };
 
 export default new Vuex.Store({
