@@ -28,6 +28,11 @@ body {
 .table td:nth-child(3), .table td:nth-child(4) {
   word-break: break-word;
 }
+.sidebar.col-3 {
+  padding-left: 0;
+  padding-right: 0;
+}
+
 
 .red {
   color: $c-error;
@@ -73,13 +78,5 @@ body {
 
   .block {
     margin: .5rem;
-  }
-}
-
-.result {
-  width: 32%;
-
-  .block {
-    width: 29%;
   }
 }

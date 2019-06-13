@@ -3,7 +3,7 @@
     <navbar />
 
     <div class="row pt-2 mt-5">
-      <div class="sidebar col-3 p-3">
+      <div class="sidebar col-3 py-3">
         <stats />
 
         <filters />
@@ -53,10 +53,14 @@ export default {
       'issues',
     ]),
     loadReportData () {
+      // import initial data
       this.$store.dispatch('reportData');
+      // make it easier to work with
       this.$store.dispatch('results');
-      this.$store.dispatch('sites');
+      // issues handled first for filtering
       this.$store.dispatch('issues');
+      // sites all prepped with easy data
+//      this.$store.dispatch('sites');
     },
   }
 }

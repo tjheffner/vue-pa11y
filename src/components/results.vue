@@ -2,7 +2,7 @@
   <div class="block result-container">
     <div class="row">
       <div class="block result"
-           v-for="(site, index) in siteList"
+           v-for="(site, index) in getSiteList"
            v-if="site.show"
            :key="index"
            @click="setActiveResult(site)"
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-  import { mapState, mapActions } from 'vuex'
+  import { mapState, mapGetters, mapActions } from 'vuex'
 
   export default {
     name: 'results',
@@ -29,9 +29,11 @@
     computed: {
       ...mapState([
         'data',
-        'siteList',
         'results',
       ]),
+      ...mapGetters([
+        'getSiteList',
+      ])
     },
     methods: {
       ...mapActions([

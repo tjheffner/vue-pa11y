@@ -16,7 +16,6 @@ const state = {
   data: '',
   results: [],
   issueList: [],
-  siteList: [],
   activeResult: null,
 };
 
@@ -32,9 +31,6 @@ const mutations = {
   },
   PROCESS_ISSUES(state, items) {
     state.issueList = items;
-  },
-  PROCESS_SITES(state, items) {
-    state.siteList = items;
   },
   PROCESS_ACTIVE_RESULT(state, item) {
     state.activeResult = item;
@@ -69,7 +65,7 @@ const actions = {
           name,
           count,
           show: true,
-          // filter results array to find the first instance of each to note its type (warning, error, etc)
+          // check results array for first instance of each to note type (warning, error, notice)
           type: (state.results.find(result => result.code === name)).type,
           // we filter the results array for each error and create an array of offending urls.
           site: state.results
@@ -79,28 +75,6 @@ const actions = {
       );
 
     commit('PROCESS_ISSUES', modified);
-  },
-  // create
-  sites: ({ commit }) => {
-    const sites = Object.entries(state.data.results)
-      .map(([key, value]) => {
-        const reduction = value.reduce((acc, issue) => {
-          acc[issue.type] += 1;
-          return acc;
-        }, {
-          error: 0,
-          notice: 0,
-          warning: 0
-        });
-
-        return {
-          name: key,
-          show: true,
-          ...reduction,
-        }
-      });
-
-    commit('PROCESS_SITES', sites);
   },
   // sets click site as active site, displaying individual results.
   setActiveResult: ({ commit }, item) => {
@@ -123,6 +97,26 @@ const getters = {
   // full count of warnings, notices, errors for filter stats.
   getStats: state => {
     return _.countBy(state.results, 'type')
+  },
+  // helper function to filter the result list based on issue visibility.
+  getActiveIssues: (state, key, type) => {
+    return state.results.filter(result => {
+      return state.issueList.some(issue => {
+        return result.site === key && result.type === type && result.code === issue.name && issue.show;
+      })
+    });
+  },
+  getSiteList: state => {
+    return Object.keys(state.data.results)
+      .map(key => {
+        return {
+          name: key,
+          show: true,
+          warning: getters.getActiveIssues(state, key, 'warning').length,
+          notice: getters.getActiveIssues(state, key, 'notice').length,
+          error: getters.getActiveIssues(state, key, 'error').length,
+        }
+      });
   },
   // get the full results for a site based on activeResult selection.
   getActiveResults: state => {
