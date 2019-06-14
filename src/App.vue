@@ -55,12 +55,10 @@ export default {
     loadReportData () {
       // import initial data
       this.$store.dispatch('reportData');
-      // make it easier to work with
+      // make data easier to work with
       this.$store.dispatch('results');
-      // issues handled first for filtering
+      // issues get some more handling for filtering
       this.$store.dispatch('issues');
-      // sites all prepped with easy data
-//      this.$store.dispatch('sites');
     },
   }
 }

@@ -32,7 +32,7 @@
 
     <p class="mb-0">Sites</p>
     <ul class="mb-0 pl-0">
-      <li class="filter" v-for="(site, index) in siteList" :key="index">
+      <li class="filter" v-for="(site, index) in checkedSites" :key="index">
         <input type="checkbox" v-model="site.show">
         {{ site.name }}
       </li>
@@ -59,10 +59,11 @@
         'data',
         'results',
         'issueList',
-        'siteList',
+        'checkedSites',
       ]),
       ...mapGetters([
-        'getStats'
+        'getStats',
+        'getSiteList'
       ]),
     },
     methods: {
