@@ -1,26 +1,27 @@
 <template>
-  <div class="section">
-    <h2 id="results" class="section-header">Detailed Breakdown</h2>
-    <div class="section-contents">
-      <div class="result-container">
-        <result v-for="(link, index) in getLinks"
-                  :result="link, index"
-                  :visible="true"
-                  :key="index"
-        />
+  <div class="block result-container">
+    <div class="row">
+      <div class="block result"
+           v-for="(site, index) in activeSiteList"
+           :key="index"
+           @click="setActiveResult(site)"
+      >
+        <p>{{ site.name }}</p>
+        <div class="row">
+          <p class="block">{{ site.notice }} notices</p>
+          <p class="block">{{ site.warning }} warnings</p>
+          <p class="block">{{ site.error }} errors</p>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import { mapState, mapGetters } from 'vuex'
-  import _ from 'lodash'
-  import result from './result';
+  import { mapState, mapGetters, mapActions } from 'vuex'
 
   export default {
     name: 'results',
-    components: { result },
     data () {
       return {}
     },
@@ -28,9 +29,22 @@
       ...mapState([
         'data',
         'results',
+        'checkedSites',
       ]),
       ...mapGetters([
-        'getLinks',
+        'getSiteList',
+      ]),
+      activeSiteList() {
+        return this.getSiteList.filter(site => {
+          return this.checkedSites.some(check => {
+            return site.name === check.name && check.show;
+          })
+        })
+      }
+    },
+    methods: {
+      ...mapActions([
+        'setActiveResult'
       ]),
     }
   }

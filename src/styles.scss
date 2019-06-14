@@ -3,59 +3,80 @@ $c-dark: #0e2e41;
 $c-light: #008eb0;
 $c-background: #e9ecef;
 $c-text: #2e2e30;
+
 $c-error: red;
+$c-warning: goldenrod;
+$c-notice: $c-light;
 
 body {
   font-family: 'Source Sans Pro', sans-serif;
   color: $c-text;
+  background: $c-background;
 }
-a {
-  color: $c-light;
+#logo {
+  color: black;
+}
 
-  &:hover {
-    color: $c-dark;
-    text-decoration: none
-  }
-}
+// overriding some bootstrap stuff in a dumb way
 .container {
-  max-width:98%;
+  max-width: 100%;
 }
+.row {
+  margin-left: 0;
+  margin-right: 0;
+}
+.table td:nth-child(3), .table td:nth-child(4) {
+  word-break: break-word;
+}
+.sidebar.col-3 {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+
 .red {
   color: $c-error;
 }
-.section {
+.sidebar {
+  height: 100%;
+}
+.block {
   border: 1px solid $c-blue;
-  margin-bottom: 2rem;
-}
-.section-header, .result-header {
-  background: $c-background;
+  background: rgba($c-blue, .2);
+  font-size: 1.25rem;
   padding: 1rem;
-  color: $c-dark;
-  border-bottom: 1px solid $c-blue;
-}
-.section-contents {
-  display: flex;
-  padding: 1rem 1rem 2rem 1rem;
-  justify-content: space-between;
+  margin-bottom: 1rem;
 
-  * {
-    flex: 1;
+  ul {
+    list-style-type: none;
   }
 }
-.result {
-  padding: 1rem 0;
-}
-.result-header {
-  border: 1px solid $c-blue;
+.filter {
   display: flex;
-  justify-content: space-between;
+  align-items: baseline;
+  font-size: .8rem;
+  word-break: break-word;
 
-  button {
-    flex: 0 1 auto;
-    width: 100px;
-    border-radius: 5px;
-    text-transform: uppercase;
-    background-color: $c-light;
-    color: $c-background;
+  input {
+    margin-right: 1rem;
+  }
+
+  a {
+    color: $c-light;
+    font-size: .75rem;
+  }
+  span {
+    margin-left: .5rem;
+    color: rgba($c-text, .5);
+    white-space: nowrap;
+  }
+}
+
+.result-container {
+  justify-content: flex-start;
+  overflow-y: scroll;
+
+  .block {
+    margin: .5rem;
   }
 }

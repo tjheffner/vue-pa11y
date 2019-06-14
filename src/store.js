@@ -15,7 +15,9 @@ Vue.use(Vuex);
 const state = {
   data: '',
   results: [],
-  errorList: [],
+  issueList: [],
+  checkedSites: [],
+  activeResult: null,
 };
 
 /**
@@ -28,8 +30,14 @@ const mutations = {
   PROCESS_RESULTS(state, items) {
     state.results = items;
   },
-  PROCESS_ERRORS(state, items) {
-    state.errorList = items;
+  PROCESS_ISSUES(state, items) {
+    state.issueList = items;
+  },
+  PROCESS_SITES(state, items) {
+    state.checkedSites = items;
+  },
+  PROCESS_ACTIVE_RESULT(state, item) {
+    state.activeResult = item;
   }
 };
 
@@ -37,9 +45,9 @@ const mutations = {
  * ACTIONS
  */
 const actions = {
-  // get the json generated from the  script
+  // get the json generated from pa11y-ci
   reportData: ({ commit }) => {
-    commit('ADD_DATA', data );
+    commit('ADD_DATA', data.default);
   },
   // make results easier to work with
   results: ({ commit }) => {
@@ -51,66 +59,75 @@ const actions = {
     });
     modified = _.flattenDeep(modified);
 
+    // commit dumb result array with all entries.
     commit('PROCESS_RESULTS', modified);
+
+    // create list of sites for filters
+    const sites = Object.keys(state.data.results).map(key => ({
+      name: key,
+      show: true
+    }));
+    commit('PROCESS_SITES', sites);
   },
   // create array of unique error objects with count, code, and violating urls present.
-  errors: (context) => {
+  issues: ({ commit, getters }) => {
     // we map the object from getListOfErrors to our new objects
-    const modified = Object.entries(context.getters.getListOfErrors)
+    const modified = Object.entries(getters.getListOfIssues)
       .map(([name, count]) => ({
         name,
         count,
         show: true,
-        // we filter the results array for each error and create an array of
-        // offending urls.
+        // check results array for first instance of each to note type (warning, error, notice)
+        type: (state.results.find(result => result.code === name)).type,
+        // we filter the results array for each error and create an array of offending urls.
         site: state.results
           .filter(({ code }) => code === name)
           .reduce((list, { site }) => [...new Set([...list, ...[site]])], []),
         })
       );
 
-    context.commit('PROCESS_ERRORS', modified);
-  }
+    commit('PROCESS_ISSUES', modified);
+  },
+  // sets click site as active site, displaying individual results.
+  setActiveResult: ({ commit }, item) => {
+    commit('PROCESS_ACTIVE_RESULT', item);
+  },
 };
 
 /**
  * GETTERS
  */
 const getters = {
-  // a list of errors and their # of occurrences
-  getListOfErrors: state => {
-    return _.countBy(state.results, 'code');
+  // a list of issues and their # of occurrences
+  getListOfIssues: state => _.countBy(state.results, 'code'),
+  // # of unique issues in list above
+  uniqueIssues: (state, getters) => _.size(getters.getListOfIssues),
+  // full count of warnings, notices, errors for filter stats.
+  getStats: state => _.countBy(state.results, 'type'),
+  // helper function to filter the result list based on issue visibility.
+  getActiveIssues: (state, key, type) =>
+    state.results.filter(result =>
+      state.issueList.some(issue =>
+        result.site === key && result.type === type && result.code === issue.name && issue.show
+    )),
+  getSiteList: state =>
+    Object.keys(state.data.results)
+      .map(key => ({
+        name: key,
+        warning: getters.getActiveIssues(state, key, 'warning').length,
+        notice: getters.getActiveIssues(state, key, 'notice').length,
+        error: getters.getActiveIssues(state, key, 'error').length,
+      })),
+  // get the full results for a site based on activeResult selection.
+  getActiveResults: state => {
+    if (state.activeResult) {
+      return state.results.filter(result => {
+        return state.issueList.some(issue => {
+          return result.site === state.activeResult.name && result.code === issue.name && issue.show;
+        })
+      })
+    }
   },
-
-  // # of errors in list above
-  uniqueErrors: (state, getters) => {
-    return _.size(getters.getListOfErrors);
-  },
-
-  // state helpers
-  results: state => state.results,
-  errorList: state => state.errorList,
-
-  // helper array of tested links (array keys in state.data.results)
-  getLinks: (state) => {
-    const links = _.map(state.data.results, function (value, index) {
-      return [index];
-    });
-
-    return _.flattenDeep(links);
-  },
-
-  // match new result object (with included site) with each link
-  getErrorsForLink: (state, getters) => (link) => {
-    return getters.results.filter(result => result.site === link)
-  },
-
-  // # of errors per site, used for a graph.
-  siteCount: (state) => {
-    return _.map(state.data.results, function (value, index) {
-      return [index, value.length]
-    });
-  }
 };
 
 export default new Vuex.Store({

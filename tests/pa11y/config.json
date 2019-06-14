@@ -1,0 +1,1 @@
+{"standard":"WCAG2AA","defaults":{"chromeLaunchConfig":{"args":["--no-sandbox"],"ignoreHTTPSErrors":false},"includeWarnings":true,"includeNotices":true,"concurrency":2,"timeout":100000,"wait":2000},"urls":["http://pa11y.org/","http://google.com/"]}
